@@ -29,7 +29,13 @@
             <div class="flex items-center place-content-end ml-1"> 
                 <x-primary-button wire:click="generatePassword" type="button">Generate</x-primary-button>
             </div>
-        </div> 
+        </div>
+
+        <span class="text-sm"> 
+            <span class="font-semibold">Password strength:</span> {{ $strengthLevels[$strengthScore] ?? 'Weak' }}
+        </span>
+    
+        <progress value="{{ $strengthScore }}" max="4" class="w-full"></progress>
 
         <x-input-error :messages="$errors->get('password')" class="mt-2" />
     </div>

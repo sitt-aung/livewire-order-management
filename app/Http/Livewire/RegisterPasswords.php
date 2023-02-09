@@ -3,11 +3,27 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use ZxcvbnPhp\Zxcvbn;
 
 class RegisterPasswords extends Component
 {
     public string $password = '';
+
     public string $password_confirmation = '';
+
+    public int $strengthScore = 0;
+    
+    public array $strengthLevels = [
+        1 => 'Weak',
+        2 => 'Fair',
+        3 => 'Good',
+        4 => 'Strong'
+    ];
+
+    public function updatedPassword($value)
+    {
+        $this->strengthScore = (new Zxcvbn())->passwordStrength($value)['score'];
+    }
 
     public function generatePassword(): void 
     {
@@ -35,6 +51,7 @@ class RegisterPasswords extends Component
     {
         $this->password = $value;
         $this->password_confirmation = $value;
+        $this->updatedPassword($value);
     }
 
     public function render()
