@@ -22,6 +22,8 @@ class CategoriesList extends Component
 
     public int $editedCategoryId = 0;
 
+    protected $listeners = ['delete'];
+
     protected function rules(): array
     {
         return [
@@ -81,6 +83,22 @@ class CategoriesList extends Component
     {
         $this->editedCategoryId = $categoryId;
         $this->category = Category::find($categoryId);
+    }
+
+    public function deleteConfirm($method, $id = null)
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type'   => 'warning',
+            'title'  => 'Are you sure?',
+            'text'   => '',
+            'id'     => $id,
+            'method' => $method,
+        ]);
+    }
+
+    public function delete($id)
+    {
+        Category::findOrFail($id)->delete();
     }
 
     public function render()
