@@ -25,7 +25,9 @@
                             Delete Selected
                         </button>
 
-                        </button>
+                        <x-primary-button wire:click="export('csv')">CSV</x-primary-button> 
+                        <x-primary-button wire:click="export('xlsx')">XLSX</x-primary-button>
+                        <x-primary-button wire:click="export('pdf')">PDF</x-primary-button>
                     </div>
  
                     <div class="overflow-hidden overflow-x-auto mb-4 min-w-full align-middle sm:rounded-md">
